@@ -5,6 +5,7 @@ from db.dependencies import get_db
 from models.document import Document
 from schemas.document import DocumentCreate
 from schemas.document_response import DocumentResponse
+from fastapi import APIRouter, Depends, HTTPException
 
 router = APIRouter(
     prefix="/documents",
@@ -19,6 +20,25 @@ def get_documents(
     documents = db.query(Document).all()
 
     return documents
+
+@router.get("/{document_id}", response_model=DocumentResponse)
+def get_document(
+    document_id: int,
+    db: Session = Depends(get_db)
+):
+    document = (
+        db.query(Document)
+        .filter(Document.id == document_id)
+        .first()
+    )
+
+    if document is None:
+        raise HTTPException(
+            status_code=404,
+            detail="Document not found"
+        )
+
+    return document
 
 @router.post("/")
 def create_document(
