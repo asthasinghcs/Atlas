@@ -1,6 +1,7 @@
 from sqlalchemy import Column, ForeignKey, Integer
 
 from db.base import Base
+from sqlalchemy.orm import relationship
 
 
 class DocumentEntity(Base):
@@ -18,4 +19,14 @@ class DocumentEntity(Base):
         Integer,
         ForeignKey("entities.id"),
         nullable=False
+    )
+
+    document = relationship(
+        "Document",
+        back_populates="entity_links"
+    )
+
+    entity = relationship(
+        "Entity",
+        back_populates="document_links"
     )
