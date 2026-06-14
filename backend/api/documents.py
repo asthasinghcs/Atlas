@@ -6,6 +6,9 @@ from models.document import Document
 from schemas.document import DocumentCreate
 from schemas.document_response import DocumentResponse
 from fastapi import APIRouter, Depends, HTTPException
+from extraction.entity_extractor import extract_entities
+from models.entity import Entity
+from models.document_entity import DocumentEntity
 
 router = APIRouter(
     prefix="/documents",
@@ -54,6 +57,37 @@ def create_document(
     )
 
     db.add(db_document)
+    db.commit()
+    db.refresh(db_document)
+
+    entities = extract_entities(document.content)
+
+    for item in entities:
+
+        existing_entity = (
+            db.query(Entity)
+            .filter(Entity.name == item["name"])
+            .first()
+        )
+
+        if existing_entity is None:
+
+            existing_entity = Entity(
+                name=item["name"],
+                entity_type=item["entity_type"]
+            )
+
+            db.add(existing_entity)
+            db.commit()
+            db.refresh(existing_entity)
+
+        link = DocumentEntity(
+            document_id=db_document.id,
+            entity_id=existing_entity.id
+        )
+
+        db.add(link)
+
     db.commit()
 
     return {
