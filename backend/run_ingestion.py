@@ -3,9 +3,10 @@ from db.session import SessionLocal
 from ingestion.rss_pipeline import ingest_feed
 
 
-TECHCRUNCH_RSS = (
-    "https://feeds.feedburner.com/TechCrunch"
-)
+RSS_FEEDS = [
+    "https://feeds.feedburner.com/TechCrunch",
+    "https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml",
+]
 
 
 def run():
@@ -14,10 +15,12 @@ def run():
 
     try:
 
-        ingest_feed(
-            TECHCRUNCH_RSS,
-            db
-        )
+        for feed in RSS_FEEDS:
+
+            ingest_feed(
+                feed,
+                db
+            )
 
         print(
             "RSS ingestion completed."

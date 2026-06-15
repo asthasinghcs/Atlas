@@ -13,9 +13,15 @@ def ingest_feed(
     db: Session
 ):
 
+    articles_seen = 0
+    documents_created = 0
+    documents_skipped = 0
+
     articles = fetch_rss_feed(feed_url)
 
     for article in articles:
+
+        articles_seen += 1
 
         existing_document = (
             db.query(Document)
@@ -24,6 +30,7 @@ def ingest_feed(
         )
 
         if existing_document:
+            documents_skipped += 1
             continue
 
         document = Document(
@@ -33,6 +40,8 @@ def ingest_feed(
             source_type="news",
             url=article["url"]
         )
+
+        documents_created += 1
 
         db.add(document)
         db.commit()
@@ -71,3 +80,9 @@ def ingest_feed(
             db.add(link)
 
         db.commit()
+
+    print(
+        f"Seen={articles_seen} "
+        f"Created={documents_created} "
+        f"Skipped={documents_skipped}"
+    )
