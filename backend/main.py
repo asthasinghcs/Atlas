@@ -23,6 +23,9 @@ from api.network import (
 from api.influence import (
     router as influence_router
 )
+from api.intelligence_report import (
+    router as intelligence_report_router
+)
 
 app = FastAPI(
     title="Atlas"
@@ -50,6 +53,9 @@ app.include_router(
 )
 app.include_router(
     influence_router
+)
+app.include_router(
+    intelligence_report_router
 )
 
 @app.get("/")
