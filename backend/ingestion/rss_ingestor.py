@@ -1,4 +1,5 @@
 import feedparser
+from bs4 import BeautifulSoup
 
 
 def fetch_rss_feed(feed_url: str):
@@ -8,10 +9,26 @@ def fetch_rss_feed(feed_url: str):
 
     for entry in feed.entries:
 
+        raw_content = entry.get(
+            "summary",
+            ""
+        )
+
+        clean_content = (
+            BeautifulSoup(
+                raw_content,
+                "html.parser"
+            )
+            .get_text(
+                separator=" ",
+                strip=True
+            )
+        )
+
         articles.append(
             {
                 "title": entry.get("title", ""),
-                "content": entry.get("summary", ""),
+                "content": clean_content,
                 "url": entry.get("link", "")
             }
         )
