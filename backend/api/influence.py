@@ -4,10 +4,12 @@ from sqlalchemy.orm import Session
 from db.dependencies import get_db
 
 from models.entity import Entity
-from models.document_entity import DocumentEntity
+from models.document_entity import (
+    DocumentEntity
+)
 
-from reporting.relationship_discovery import (
-    discover_relationships
+from reporting.influence import (
+    calculate_influence
 )
 
 
@@ -22,12 +24,12 @@ def influence_ranking(
     db: Session = Depends(get_db)
 ):
 
+    rankings = []
+
     entities = (
         db.query(Entity)
         .all()
     )
-
-    rankings = []
 
     for entity in entities:
 
@@ -40,25 +42,18 @@ def influence_ranking(
             .count()
         )
 
-        connections = len(
-            discover_relationships(
+        influence = (
+            calculate_influence(
                 entity.name,
+                mentions,
                 db
             )
-        )
-
-        influence_score = (
-            mentions +
-            connections
         )
 
         rankings.append(
             {
                 "entity": entity.name,
-                "mentions": mentions,
-                "connections": connections,
-                "influence_score":
-                    influence_score
+                **influence
             }
         )
 
