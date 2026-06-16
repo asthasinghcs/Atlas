@@ -14,22 +14,20 @@ from api.scoring import router as scoring_router
 from api.reports import router as reports_router
 from api.daily_brief import router as daily_brief_router
 from api.trends import router as trends_router
-from api.relationships import (
-    router as relationships_router
-)
-from api.network import (
-    router as network_router
-)
-from api.influence import (
-    router as influence_router
-)
-from api.intelligence_report import (
-    router as intelligence_report_router
-)
+from api.relationships import router as relationships_router
+from api.network import router as network_router
+from api.influence import router as influence_router
+from api.intelligence_report import router as intelligence_report_router
+from api.executive_brief import router as executive_brief_router
+from api.insights import router as insights_router
+from api.dashboard import router as dashboard_router
+from api.snapshot import router as snapshot_router
+
 
 app = FastAPI(
     title="Atlas"
 )
+
 
 app.include_router(document_router)
 app.include_router(entity_router)
@@ -45,18 +43,15 @@ app.include_router(scoring_router)
 app.include_router(reports_router)
 app.include_router(daily_brief_router)
 app.include_router(trends_router)
-app.include_router(
-    relationships_router
-)
-app.include_router(
-    network_router
-)
-app.include_router(
-    influence_router
-)
-app.include_router(
-    intelligence_report_router
-)
+app.include_router(relationships_router)
+app.include_router(network_router)
+app.include_router(influence_router)
+app.include_router(intelligence_report_router)
+app.include_router(executive_brief_router)
+app.include_router(insights_router)
+app.include_router(dashboard_router)
+app.include_router(snapshot_router)
+
 
 @app.get("/")
 def root():
