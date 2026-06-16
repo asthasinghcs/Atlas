@@ -22,6 +22,9 @@ from api.executive_brief import router as executive_brief_router
 from api.insights import router as insights_router
 from api.dashboard import router as dashboard_router
 from api.snapshot import router as snapshot_router
+from api.growth import router as growth_router
+from api.cleanup import router as cleanup_router
+from api.themes import router as themes_router
 
 
 app = FastAPI(
@@ -51,7 +54,9 @@ app.include_router(executive_brief_router)
 app.include_router(insights_router)
 app.include_router(dashboard_router)
 app.include_router(snapshot_router)
-
+app.include_router(growth_router)
+app.include_router(cleanup_router)
+app.include_router(themes_router)
 
 @app.get("/")
 def root():
