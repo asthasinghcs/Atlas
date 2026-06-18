@@ -24,6 +24,7 @@ def get_relationships(
         "related_entities":
             discover_relationships(
                 entity_name,
-                db
+                db,
+                limit=10
             )
     }

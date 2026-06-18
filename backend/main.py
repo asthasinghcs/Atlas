@@ -26,6 +26,7 @@ from api.growth import router as growth_router
 from api.cleanup import router as cleanup_router
 from api.themes import router as themes_router
 from api.discovered_themes import router as discovered_themes_router
+from api.knowledge_graph import router as knowledge_graph_router
 
 
 app = FastAPI(
@@ -59,6 +60,8 @@ app.include_router(growth_router)
 app.include_router(cleanup_router)
 app.include_router(themes_router)
 app.include_router(discovered_themes_router)
+app.include_router(knowledge_graph_router)
+
 
 @app.get("/")
 def root():

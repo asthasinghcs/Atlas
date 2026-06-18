@@ -1,33 +1,38 @@
-NORMALIZATION_MAP = {
+import re
 
-    "Google's": "Google",
-    "Google Search": "Google",
-    "Google Search Console": "Google",
-
-    "Meta Platforms": "Meta",
-    "Facebook": "Meta",
-
-    "Adobe Photoshop": "Adobe",
-    "Photoshop": "Adobe",
-
-    "YouTube SEO": "YouTube",
-
-    "OpenAI Codex": "OpenAI",
-    "ChatGPT": "OpenAI",
-
-    "Amazon AWS": "Amazon",
-    "AWS": "Amazon",
-
-    "Microsoft Word": "Microsoft",
-    "Microsoft Office": "Microsoft"
-}
+from config.entity_aliases import ENTITY_ALIASES
 
 
 def normalize_entity(
     entity_name: str
-):
+) -> str:
 
-    return NORMALIZATION_MAP.get(
-        entity_name,
+    if not entity_name:
+        return ""
+
+    entity_name = entity_name.strip()
+
+    entity_name = re.sub(
+        r"\s+",
+        " ",
         entity_name
     )
+
+    entity_name = entity_name.replace(
+        "\n",
+        " "
+    )
+
+    lookup = entity_name.lower()
+
+    if lookup in ENTITY_ALIASES:
+        return ENTITY_ALIASES[lookup]
+
+    words = entity_name.split()
+
+    entity_name = " ".join(
+        word.capitalize()
+        for word in words
+    )
+
+    return entity_name

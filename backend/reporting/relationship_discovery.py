@@ -6,7 +6,8 @@ from models.entity import Entity
 
 def discover_relationships(
     entity_name: str,
-    db
+    db,
+    limit: int | None = None
 ):
 
     target = (
@@ -23,8 +24,7 @@ def discover_relationships(
     document_links = (
         db.query(DocumentEntity)
         .filter(
-            DocumentEntity.entity_id
-            == target.id
+            DocumentEntity.entity_id == target.id
         )
         .all()
     )
@@ -51,9 +51,14 @@ def discover_relationships(
                 related_link.entity_id
             ] += 1
 
+    if limit is None:
+        related_entities = counter.most_common()
+    else:
+        related_entities = counter.most_common(limit)
+
     results = []
 
-    for entity_id, count in counter.most_common(10):
+    for entity_id, count in related_entities:
 
         entity = (
             db.query(Entity)

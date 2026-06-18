@@ -1,8 +1,7 @@
 import spacy
 
-from extraction.entity_normalizer import (
-    normalize_entity
-)
+from extraction.entity_filters import is_valid_entity
+from extraction.entity_normalizer import normalize_entity
 
 nlp = spacy.load(
     "en_core_web_sm"
@@ -27,39 +26,6 @@ ALLOWED_LABELS = {
 }
 
 
-BLOCKED_ENTITIES = {
-    "Pros",
-    "Cons",
-    "Pricing",
-    "Features",
-    "Benefits",
-    "Guide",
-    "Tips",
-    "Analysis",
-    "Review",
-    "Background",
-    "Background Remover",
-    "Magic Resize",
-    "Brand Kits",
-    "Design",
-    "Tools",
-    "Tool",
-    "Plans",
-    "Premium",
-    "Run",
-    "Overall",
-    "Reviews",
-    "Guarantees",
-    "Send",
-    "Finds",
-    "Limited",
-    "Team Plan",
-    "Position Tracking",
-    "White Label",
-    "Personalize Personalize"
-}
-
-
 def extract_entities(
     text: str
 ):
@@ -71,23 +37,14 @@ def extract_entities(
 
     for ent in doc.ents:
 
+        if ent.label_ not in ALLOWED_LABELS:
+            continue
+
         entity_name = normalize_entity(
             ent.text.strip()
         )
 
-        if ent.label_ not in ALLOWED_LABELS:
-            continue
-
-        if len(entity_name) < 3:
-            continue
-
-        if entity_name in BLOCKED_ENTITIES:
-            continue
-
-        if entity_name.isdigit():
-            continue
-
-        if len(entity_name.split()) > 6:
+        if not is_valid_entity(entity_name):
             continue
 
         entity_type = ENTITY_MAPPING.get(
