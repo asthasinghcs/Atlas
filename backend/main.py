@@ -27,10 +27,21 @@ from api.cleanup import router as cleanup_router
 from api.themes import router as themes_router
 from api.discovered_themes import router as discovered_themes_router
 from api.knowledge_graph import router as knowledge_graph_router
+from fastapi.middleware.cors import CORSMiddleware
 
 
 app = FastAPI(
     title="Atlas"
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:5173"
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 

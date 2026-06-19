@@ -1,0 +1,22 @@
+.insight-list {
+
+    background: #111827;
+
+    border: 1px solid #1f2937;
+
+    border-radius: 12px;
+
+    padding: 20px;
+}
+
+.insight-list h2 {
+
+    margin-bottom: 16px;
+}
+
+.insight-list li {
+
+    margin-bottom: 10px;
+
+    color: #cbd5e1;
+}
