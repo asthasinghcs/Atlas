@@ -3,13 +3,8 @@ from sqlalchemy.orm import Session
 
 from db.dependencies import get_db
 
-from models.entity import Entity
-from models.document_entity import (
-    DocumentEntity
-)
-
-from reporting.influence import (
-    calculate_influence
+from reporting.entity_intelligence import (
+    build_entity_intelligence
 )
 
 
@@ -24,43 +19,8 @@ def influence_ranking(
     db: Session = Depends(get_db)
 ):
 
-    rankings = []
-
-    entities = (
-        db.query(Entity)
-        .all()
-    )
-
-    for entity in entities:
-
-        mentions = (
-            db.query(DocumentEntity)
-            .filter(
-                DocumentEntity.entity_id
-                == entity.id
-            )
-            .count()
-        )
-
-        influence = (
-            calculate_influence(
-                entity.name,
-                mentions,
-                db
-            )
-        )
-
-        rankings.append(
-            {
-                "entity": entity.name,
-                **influence
-            }
-        )
-
-    rankings.sort(
-        key=lambda x:
-            x["influence_score"],
-        reverse=True
+    rankings = build_entity_intelligence(
+        db
     )
 
     return rankings[:10]

@@ -4,9 +4,7 @@ from sqlalchemy.orm import Session
 from db.dependencies import get_db
 
 from models.entity import Entity
-from models.document_entity import (
-    DocumentEntity
-)
+from models.document_entity import DocumentEntity
 
 from reporting.relationship_discovery import (
     discover_relationships
@@ -55,29 +53,47 @@ def intelligence_report(
         .count()
     )
 
-    influence = (
-        calculate_influence(
-            entity.name,
-            mentions,
-            db
-        )
-    )
-
-    relationships = (
-        discover_relationships(
-            entity.name,
-            db
-        )
-    )
-
-    return generate_entity_report(
+    influence = calculate_influence(
         entity.name,
         mentions,
-        influence[
-            "relationship_strength"
-        ],
-        influence[
-            "influence_score"
-        ],
-        relationships
+        db
+    )
+
+    relationships = discover_relationships(
+        entity.name,
+        db
+    )
+
+    entity_data = {
+
+        "entity":
+            entity.name,
+
+        "entity_type":
+            entity.entity_type,
+
+        "mentions":
+            mentions,
+
+        "relationship_strength":
+            influence[
+                "relationship_strength"
+            ],
+
+        "unique_connections":
+            influence[
+                "unique_connections"
+            ],
+
+        "influence_score":
+            influence[
+                "influence_score"
+            ],
+
+        "top_connections":
+            relationships
+    }
+
+    return generate_entity_report(
+        entity_data
     )

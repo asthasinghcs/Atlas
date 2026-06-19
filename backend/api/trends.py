@@ -7,7 +7,7 @@ from db.dependencies import get_db
 from models.entity import Entity
 from models.document_entity import DocumentEntity
 
-from reporting.trend_detector import (
+from reporting.trend_classifier import (
     classify_trend
 )
 

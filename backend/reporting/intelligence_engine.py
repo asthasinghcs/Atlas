@@ -15,40 +15,45 @@ def classify_entity(
 
 
 def generate_entity_report(
-    entity_name: str,
-    mentions: int,
-    relationship_strength: int,
-    influence_score: int,
-    top_connections: list
+    entity: dict
 ):
 
     classification = classify_entity(
-        influence_score
+        entity["influence_score"]
     )
 
     connection_names = [
         connection["name"]
-        for connection in top_connections[:3]
+        for connection in entity.get(
+            "top_connections",
+            []
+        )[:3]
     ]
 
     summary = (
-        f"{entity_name} is a "
+        f"{entity['entity']} is a "
         f"{classification.lower()} entity "
         f"within the Atlas knowledge graph. "
-        f"It appears in {mentions} documents "
+        f"It appears in "
+        f"{entity['mentions']} documents "
         f"and has a relationship strength of "
-        f"{relationship_strength}. "
-        f"Strong connections include "
-        f"{', '.join(connection_names)}."
+        f"{entity['relationship_strength']}. "
     )
 
+    if connection_names:
+
+        summary += (
+            "Strong connections include "
+            f"{', '.join(connection_names)}."
+        )
+
     return {
-        "entity": entity_name,
-        "classification": classification,
-        "mentions": mentions,
-        "relationship_strength":
-            relationship_strength,
-        "influence_score":
-            influence_score,
-        "summary": summary
+
+        **entity,
+
+        "classification":
+            classification,
+
+        "summary":
+            summary
     }
