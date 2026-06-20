@@ -1,4 +1,4 @@
-import "../styles/executive-brief.css";
+import "./ExecutiveBrief.css";
 
 function ExecutiveBrief({ brief }) {
 

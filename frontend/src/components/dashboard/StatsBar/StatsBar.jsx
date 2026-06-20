@@ -1,4 +1,4 @@
-import "../styles/stats-bar.css";
+import "./StatsBar.css";
 
 function StatsBar({ dashboard }) {
 

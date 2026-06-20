@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 
-import atlasApi from "../api/atlasApi";
+import atlasApi from "../../api/atlasApi";
 
-import TopEntities from "../components/TopEntities";
-import ExecutiveBrief from "../components/ExecutiveBrief";
-import InsightList from "../components/InsightList";
-import "../styles/dashboard.css";
+import TopEntities from "../../components/dashboard/TopEntities/TopEntities";
+import ExecutiveBrief from "../../components/dashboard/ExecutiveBrief/ExecutiveBrief";
+import InsightList from "../../components/dashboard/InsightList/InsightList";
+import StatsBar from "../../components/dashboard/StatsBar/StatsBar";
 
-import StatsBar from "../components/StatsBar";
+import "./Dashboard.css";
 
 function Dashboard() {
 

@@ -1,4 +1,4 @@
-import EntityCard from "./EntityCard";
+import EntityCard from "../../entity/EntityCard/EntityCard";
 
 function TopEntities({ entities }) {
 

@@ -1,4 +1,4 @@
-import "../styles/insight-list.css";
+import "./InsightList.css";
 
 function InsightList({ insights }) {
 

@@ -1,4 +1,4 @@
-import "../styles/entity-card.css";
+import "./EntityCard.css";
 
 function EntityCard({ entity }) {
 
