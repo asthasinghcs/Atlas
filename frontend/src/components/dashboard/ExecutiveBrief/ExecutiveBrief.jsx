@@ -6,9 +6,23 @@ function ExecutiveBrief({ brief }) {
 
         <section className="executive-brief">
 
-            <h2>Executive Brief</h2>
+            <div className="brief-header">
 
-            <p>{brief}</p>
+                <span className="brief-label">
+                    Executive Intelligence Brief
+                </span>
+
+                <span className="brief-status">
+                    Live
+                </span>
+
+            </div>
+
+            <p className="brief-content">
+
+                {brief}
+
+            </p>
 
         </section>
 

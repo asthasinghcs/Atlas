@@ -1,15 +1,63 @@
-.executive-brief {
+.executive-brief{
 
-    background: #111827;
+    background:var(--surface-primary);
 
-    border: 1px solid #1f2937;
+    border:1px solid var(--border-primary);
 
-    border-radius: 12px;
+    border-radius:var(--radius-lg);
 
-    padding: 20px;
+    padding:32px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:20px;
+
 }
 
-.executive-brief h2 {
+.brief-header{
 
-    margin-bottom: 16px;
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+.brief-label{
+
+    color:var(--text-muted);
+
+    text-transform:uppercase;
+
+    letter-spacing:.08em;
+
+    font-size:.78rem;
+
+    font-weight:600;
+
+}
+
+.brief-status{
+
+    color:var(--color-success);
+
+    font-size:.85rem;
+
+    font-weight:600;
+
+}
+
+.brief-content{
+
+    color:var(--text-primary);
+
+    font-size:1.15rem;
+
+    line-height:1.8;
+
+    max-width:900px;
+
 }

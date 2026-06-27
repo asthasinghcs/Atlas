@@ -33,8 +33,14 @@ function Dashboard() {
 
             catch (error) {
 
+                console.error("Dashboard request failed");
+            
                 console.error(error);
-
+            
+                console.error(error.response);
+            
+                console.error(error.response?.data);
+            
             }
 
             finally {
@@ -65,17 +71,23 @@ function Dashboard() {
 
         <div className="dashboard">
     
-            <h1>Atlas Dashboard</h1>
-
-            <p className="subtitle">
-                Executive Intelligence Overview
-            </p>
-
-            <StatsBar dashboard={dashboard} />
+            <section className="hero-section">
     
-            <div className="dashboard-grid">
+                <ExecutiveBrief
+                    brief={dashboard.executive_brief}
+                />
     
-                <div className="left-column">
+            </section>
+    
+            <section className="metrics-section">
+    
+                <StatsBar dashboard={dashboard} />
+    
+            </section>
+    
+            <section className="intelligence-grid">
+    
+                <div className="entities-column">
     
                     <TopEntities
                         entities={dashboard.top_entities}
@@ -83,11 +95,7 @@ function Dashboard() {
     
                 </div>
     
-                <div className="right-column">
-    
-                    <ExecutiveBrief
-                        brief={dashboard.executive_brief}
-                    />
+                <div className="signals-column">
     
                     <InsightList
                         insights={dashboard.insights}
@@ -95,7 +103,17 @@ function Dashboard() {
     
                 </div>
     
-            </div>
+            </section>
+    
+            <section className="activity-section">
+    
+                <div className="placeholder-panel">
+    
+                    Knowledge Activity
+    
+                </div>
+    
+            </section>
     
         </div>
     

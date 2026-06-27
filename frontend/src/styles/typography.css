@@ -1,0 +1,31 @@
+.display-title {
+
+    font-size: 2.5rem;
+
+    font-weight: 700;
+
+    line-height: 1.15;
+
+    letter-spacing: -.03em;
+}
+
+.page-title {
+
+    font-size: 2rem;
+
+    font-weight: 700;
+}
+
+.section-title {
+
+    font-size: 1.25rem;
+
+    font-weight: 600;
+}
+
+.caption {
+
+    font-size: .85rem;
+
+    color: var(--text-muted);
+}

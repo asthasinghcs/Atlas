@@ -1,64 +1,59 @@
-.dashboard {
+.dashboard{
 
-    max-width: 1500px;
+    display:flex;
 
-    margin: 0 auto;
+    flex-direction:column;
 
-    padding: 32px;
+    gap:32px;
+
+    padding-top:32px;
+
+    padding-bottom:48px;
+
 }
 
-.dashboard h1 {
+.hero-section{
 
-    font-size: 3rem;
+    width:100%;
 
-    margin-bottom: .5rem;
-
-    font-weight: 700;
-
-
-
-    margin-bottom: 32px;
-
-    font-size: 42px;
-
-    font-weight: 700;
 }
 
-.dashboard-grid {
+.metrics-section{
 
-    display: grid;
+    width:100%;
 
-    grid-template-columns: 2fr 1fr;
-
-    gap: 24px;
-
-    align-items: start;
 }
 
-.left-column {
+.intelligence-grid{
 
-    display: flex;
+    display:grid;
 
-    flex-direction: column;
+    grid-template-columns:2fr 1fr;
 
-    gap: 24px;
+    gap:24px;
+
+    align-items:start;
+
 }
 
-.right-column {
+.activity-section{
 
-    display: flex;
+    width:100%;
 
-    flex-direction: column;
-
-    gap: 24px;
 }
 
-.subtitle {
+.placeholder-panel{
 
-    color: #8ea9d6;
+    min-height:220px;
 
-    font-size: 1rem;
+    border:1px solid var(--border-primary);
 
-    margin-bottom: 2rem;
+    border-radius:var(--radius-lg);
+
+    background:var(--surface-primary);
+
+    padding:24px;
+
+    color:var(--text-secondary);
 
 }
