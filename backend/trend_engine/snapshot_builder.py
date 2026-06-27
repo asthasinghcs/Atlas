@@ -14,6 +14,21 @@ def build_daily_snapshot(
 ):
 
     today = date.today()
+    
+    existing = (
+    db.query(TrendSnapshot)
+    .filter(
+        TrendSnapshot.snapshot_date == today
+    )
+    .first()
+    )
+
+    if existing:
+
+        return {
+            "snapshot_date": today,
+            "entities_saved": 0
+        }
 
     entities = db.query(Entity).all()
 

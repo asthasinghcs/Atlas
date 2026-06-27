@@ -36,9 +36,7 @@ def discover_themes(
 
         for item in related[:5]:
 
-            cluster.append(
-                item["name"]
-            )
+            cluster.append(item)
 
         cluster = list(
             set(cluster)

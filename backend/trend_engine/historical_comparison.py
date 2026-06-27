@@ -32,6 +32,10 @@ def compare_with_previous_snapshot(
         .all()
     )
 
+    if not previous_snapshots:
+
+        return []
+
     previous_lookup = {
         snapshot.entity_name: snapshot
         for snapshot in previous_snapshots
@@ -63,15 +67,12 @@ def compare_with_previous_snapshot(
             {
                 "entity": current.entity_name,
                 "status": "existing",
-
                 "mention_change":
                     current.mentions -
                     previous.mentions,
-
                 "influence_change":
                     current.influence_score -
                     previous.influence_score,
-
                 "relationship_change":
                     current.relationship_count -
                     previous.relationship_count

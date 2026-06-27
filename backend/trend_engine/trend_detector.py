@@ -41,17 +41,27 @@ def detect_trends(
 
             trend = "stable"
 
-        trends.append(
-            {
-                "entity": item["entity"],
-                "trend": trend,
-                "mention_change":
-                    item["mention_change"],
-                "influence_change":
-                    item["influence_change"],
-                "relationship_change":
-                    item["relationship_change"]
-            }
-        )
+        if trend != "stable":
+
+            trends.append(
+                {
+                    "entity": item["entity"],
+                    "trend": trend,
+                    "mention_change":
+                        item["mention_change"],
+                    "influence_change":
+                        item["influence_change"],
+                    "relationship_change":
+                        item["relationship_change"]
+                }
+            )
+
+    trends.sort(
+        key=lambda x: (
+            abs(x["mention_change"]),
+            abs(x["influence_change"])
+        ),
+        reverse=True
+    )
 
     return trends

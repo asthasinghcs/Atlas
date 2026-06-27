@@ -2,8 +2,8 @@ from models.entity import Entity
 
 
 def get_related_entities(
-    entity_name,
-    db
+    db,
+    entity_name
 ):
 
     entity = (
